@@ -8,7 +8,8 @@ public class MoveController : MonoBehaviour
     CharacterController cc;
     Animator animator;
 
-    public float moveSpeed = 5f;
+    public float moveSpeed = 5.0f;
+    public Weapon weapon;
 
     int targetHandle;
 
@@ -60,24 +61,27 @@ public class MoveController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            int result = Random.Range(1, 4);
-            animator.SetBool("IsAttack", true);
-            animator.SetInteger("AttackNumber", result);
-        }
-        else
-        {
-            animator.SetBool("IsAttack", false);
+            Attack();
         }
 
         UpdateTarget();
     }
 
-    private void OnCollisionEnterHit(ControllerColliderHit hit)
+    void Attack()
     {
-        if (hit.rigidbody)
-        {
-            Debug.Log("Ãæµ¹!");
-        }
+        int result = Random.Range(1, 4);
+        animator.SetBool("IsAttack", true);
+        animator.SetInteger("AttackNumber", result);
+
+        weapon.StartAttack();
+
+        Invoke("EndAttack", 0.5f);
+    }
+
+    void EndAttack()
+    {
+        weapon.EndAttack();
+        animator.SetBool("IsAttack", false);
     }
 
     void UpdateTarget()
