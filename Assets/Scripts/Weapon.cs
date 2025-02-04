@@ -6,20 +6,34 @@ public class Weapon : MonoBehaviour
     public Transform hitBoxPosition;
     public float hitBoxRadius = 1.5f;
     public LayerMask monsterLayer; // 공격 대상 지정
+    public TrailRenderer trailRenderer;
 
     private bool isAttack = false;
 
-    
-
+    private void Start()
+    {
+        if (trailRenderer != null) // 할당되어있으면 비활성화
+        {
+            trailRenderer.enabled = false;
+        }
+    }
     public void StartAttack()
     {
         isAttack = true;
+        if (trailRenderer != null)
+        {
+            trailRenderer.enabled = true;
+        }
         Hit();
     }
 
     public void EndAttack()
     {
         isAttack = false;
+        if (trailRenderer != null)
+        {
+            trailRenderer.enabled = false;
+        }
     }
 
     private void Hit()

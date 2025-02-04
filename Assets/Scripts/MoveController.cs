@@ -101,6 +101,8 @@ public class MoveController : MonoBehaviour
 
         if (targetHandle != monsterHandle)
         {
+            MonsterHpUI.Instance?.SetMonster(monster); // ?.는 Instance가 null이면 실행하지 않음
+
             // 이전 타겟의 아웃라인을 제거
             var prevTarget = map.GetMonster(targetHandle);
             if (prevTarget != null)

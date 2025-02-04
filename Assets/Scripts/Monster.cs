@@ -5,7 +5,7 @@ public class Monster : MonoBehaviour
     static int monsterHandle = 0; //static 이라 모든 몬스터가 공유, 각각 고유번호 생성
 
     public int Handle { get; private set; }
-    public float hp = 100;
+    public float hp = 100.0f;
 
     Animator animator;
 
@@ -32,6 +32,9 @@ public class Monster : MonoBehaviour
 
         hp -= damage;
         Debug.Log($"몬스터 남은 HP : {hp}");
+
+        MonsterHpUI.Instance?.UpdateHP(); // ?.는 Instance가 null이면 실행하지 않음
+
         if (hp <= 0)
         {
             Die();
